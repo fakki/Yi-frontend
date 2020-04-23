@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Yi</string>
+    <string name="white_win">白棋胜</string>
+    <string name="black_win">黑棋胜</string>
+</resources>
