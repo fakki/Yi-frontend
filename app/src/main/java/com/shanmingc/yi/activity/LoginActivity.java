@@ -18,15 +18,10 @@ import android.os.Bundle;
 import com.google.gson.Gson;
 import com.shanmingc.yi.R;
 import com.shanmingc.yi.model.UserMessage;
-import com.shanmingc.yi.util.RequestBodyConverter;
 import okhttp3.*;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.*;
 
+import static com.shanmingc.yi.activity.RegisterActivity.HOST;
 import static com.shanmingc.yi.activity.RoomActivity.IS_LOGIN;
 import static com.shanmingc.yi.activity.RoomActivity.USER_PREFERENCES;
 
@@ -101,12 +96,12 @@ public class LoginActivity extends AppCompatActivity {
                         .add("username", username)
                         .add("password", password)
                         .build();
-                Request request = new Request.Builder().url("http://192.168.8.69:8081/api/user/login").
+                Request request = new Request.Builder().url(HOST + "/api/user/login").
                         post(formBody).build();
                 Future<String> response = exec.submit(new com.shanmingc.yi.network.Request(request));
                 while (!response.isDone()) {
                     try {
-                        Thread.sleep(20);
+                        Thread.sleep(200);
                     } catch (InterruptedException e) {
                         Log.d(TAG, e.toString());
                     }
