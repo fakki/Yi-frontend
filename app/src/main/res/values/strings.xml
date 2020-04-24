@@ -2,4 +2,15 @@
     <string name="app_name">Yi</string>
     <string name="white_win">白棋胜</string>
     <string name="black_win">黑棋胜</string>
+    <string name="login">登录</string>
+    <string name="register">用户注册</string>
+    <string name="forgotPassword">忘记密码</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="start">开始</string>
+    <string name="accept">确认</string>
+    <string name="prompt_email">用户名</string>
+    <string name="prompt_password">密码</string>
+    <string name="invalid_username">用户名不合法</string>
+    <string name="invalid_password">密码必须大于6个字符</string>
+    <string name="login_failed">登录失败</string>
 </resources>
