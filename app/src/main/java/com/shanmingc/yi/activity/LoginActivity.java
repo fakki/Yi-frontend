@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.shanmingc.yi.R;
 import com.shanmingc.yi.model.UserMessage;
 import okhttp3.*;
+
 import java.util.concurrent.*;
 
 import static com.shanmingc.yi.activity.RegisterActivity.HOST;
@@ -84,6 +85,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
+
+        Button  forgotPasswordButton = findViewById(R.id.forgotPassword);
+        forgotPasswordButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(LoginActivity.this,ForgetActivity.class));
             }
         });
 

@@ -22,7 +22,7 @@ public class RoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferences preferences = getSharedPreferences(USER_PREFERENCES, MODE_PRIVATE);
-                preferences.edit().putBoolean(IS_LOGIN, false).apply();
+                preferences.edit().putBoolean(IS_LOGIN, true).apply();
                 boolean isLogin = preferences.getBoolean(IS_LOGIN, false);
                 if(isLogin)
                     startActivity(new Intent(RoomActivity.this, BoardActivity.class));

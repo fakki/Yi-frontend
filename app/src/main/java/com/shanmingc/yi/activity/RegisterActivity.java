@@ -27,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
 
-    public static final String HOST = "http://192.168.8.69:8081";
+    public static final String HOST = "http://192.168.1.102:8081";
 
     private String username;
     private String password;
