@@ -5,7 +5,6 @@ import android.os.Bundle;
 import com.shanmingc.yi.R;
 
 public class BoardActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

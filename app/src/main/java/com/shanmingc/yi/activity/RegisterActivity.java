@@ -13,6 +13,7 @@ import android.os.Bundle;
 import com.google.gson.Gson;
 import com.shanmingc.yi.R;
 import com.shanmingc.yi.model.UserMessage;
+import com.shanmingc.yi.network.RequestProxy;
 import okhttp3.FormBody;
 import okhttp3.Request;
 import org.w3c.dom.Text;
@@ -27,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
 
-    public static final String HOST = "http://192.168.8.69:8081";
+    public static final String HOST = "http://192.168.1.5:8081";
 
     private String username;
     private String password;
@@ -63,12 +64,19 @@ public class RegisterActivity extends AppCompatActivity {
                         .add("email", email)
                         .build();
                 Request request = new Request.Builder().url(HOST + "/api/user/register").post(formBody).build();
-                Future<String> response = exec.submit(new com.shanmingc.yi.network.Request(request));
+
+                RequestProxy proxy = RequestProxy.getInstance();
+                proxy.request(request);
+
                 try {
-                    while (!response.isDone()) {
+                    while (!proxy.isDone()) {
+                        if(proxy.isFailed()) {
+                            onFailed("获取失败");
+                            return;
+                        }
                         Thread.sleep(200);
                     }
-                    String json = response.get();
+                    String json = proxy.response().body().string();
                     Gson gson = new Gson();
                     UserMessage message = gson.fromJson(json, UserMessage.class);
                     loading.setVisibility(View.GONE);

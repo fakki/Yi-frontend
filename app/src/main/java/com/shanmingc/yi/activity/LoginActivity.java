@@ -18,6 +18,7 @@ import android.os.Bundle;
 import com.google.gson.Gson;
 import com.shanmingc.yi.R;
 import com.shanmingc.yi.model.UserMessage;
+import com.shanmingc.yi.network.RequestProxy;
 import okhttp3.*;
 import java.util.concurrent.*;
 
@@ -91,25 +92,37 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //点击登录后，显示加载动画
                 loading.setVisibility(View.VISIBLE);
+                //构建Post请求体
                 FormBody formBody = new FormBody.Builder()
                         .add("username", username)
                         .add("password", password)
                         .build();
+                //网络请求
                 Request request = new Request.Builder().url(HOST + "/api/user/login").
                         post(formBody).build();
-                Future<String> response = exec.submit(new com.shanmingc.yi.network.Request(request));
-                while (!response.isDone()) {
+
+                RequestProxy proxy = RequestProxy.getInstance();
+                proxy.request(request);
+                //轮询等待response到达客户端
+                while (!proxy.isDone()) {
+                    if(proxy.isFailed()) {
+                        onFailed("获取失败");
+                        return;
+                    }
                     try {
-                        Thread.sleep(200);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         Log.d(TAG, e.toString());
                     }
                 }
+
+                //解析返回的json
                 Gson gson = new Gson();
                 UserMessage message;
                 try {
-                    message = gson.fromJson(response.get(), UserMessage.class);
+                    message = gson.fromJson(proxy.response().body().string(), UserMessage.class);
                 } catch (Exception e) {
                     Log.d(TAG, "json parse error: " + e);
                     finish();

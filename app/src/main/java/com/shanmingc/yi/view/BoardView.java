@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
+import androidx.core.content.ContextCompat;
 import com.shanmingc.yi.R;
 
 import static android.view.MotionEvent.*;
@@ -27,15 +28,18 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
     private int[][] chessSeq = new int[GRID_H_SIZE*GRID_W_SIZE+1][2];
     private int curChess = 0;
 
+    private Context context;
+
     private float prePaintedX = -1;
     private float getPrePaintedY = -1;
 
-    private Bitmap bm;
+    private Bitmap black, white;
 
     public BoardView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        bm= BitmapFactory.decodeResource(getResources(), R.drawable.bg);
+        this.context = context;
+        black = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.black_shadow), 150 ,150, false);
+        white = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.white_shadow), 150 ,150, false);
         sfh=this.getHolder();
         sfh.addCallback(this);
     }
@@ -55,7 +59,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
         canvas=sfh.lockCanvas();
         canvas.drawColor(Color.WHITE);
         Paint paint=new Paint();
-        canvas.drawBitmap(bm,0,0,paint);
+        canvas.drawColor(ContextCompat.getColor(context, R.color.board_yellow));
         paint.setColor(Color.BLACK);
         paint.setStrokeWidth(1);
         paint.setStyle(Paint.Style.STROKE);
@@ -73,10 +77,8 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
         paint.setStrokeWidth(radius);
         for(int i = 1; i <= curChess; i++) {
             if(i%2 == 1)
-                paint.setColor(Color.BLACK);
-            else paint.setColor(Color.WHITE);
-            canvas.drawCircle(chessSeq[i][0] * titleW + startW, chessSeq[i][1] * titleH + startH,
-                    radius / 2, paint);
+                canvas.drawBitmap(black, chessSeq[i][0] * titleW, chessSeq[i][1] * titleH , paint);
+            else canvas.drawBitmap(white,  chessSeq[i][0] * titleW, chessSeq[i][1] * titleH , paint);
         }
         if (canvas!=null) {
             sfh.unlockCanvasAndPost(canvas);
@@ -99,6 +101,9 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
     public boolean onTouchEvent(MotionEvent event) {
         if(event.getAction() == ACTION_UP) {
             int[] pos = processPos(event.getX(), event.getY());
+            if(board[pos[0]][pos[1]] != 0)
+                return false;
+
             chessSeq[++curChess][0] = pos[0];
             chessSeq[curChess][1] = pos[1];
             board[pos[0]][pos[1]] = (curChess % 2) + 1;
