@@ -13,11 +13,13 @@ import android.os.Bundle;
 import com.google.gson.Gson;
 import com.shanmingc.yi.R;
 import com.shanmingc.yi.model.UserMessage;
+import com.shanmingc.yi.network.RequestProxy;
 import okhttp3.FormBody;
 import okhttp3.Request;
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -27,13 +29,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
 
+<<<<<<< HEAD
     public static final String HOST = "http://192.168.1.102:8081";
+=======
+    public static final String HOST = "http://192.168.1.5:8081";
+>>>>>>> upstream/master
 
     private String username;
     private String password;
     private String email;
-
-    private static ExecutorService exec = Executors.newCachedThreadPool();
 
     private ProgressBar loading;
 
@@ -53,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loading.setVisibility(View.VISIBLE);
-                if(!isValidEmail(email) || !isValidUsername(username) || !isValidPassword(password)) {
+                if (!isValidEmail(email) || !isValidUsername(username) || !isValidPassword(password)) {
                     showSingleNeutralAlertDialog(RegisterActivity.this,
                             getString(R.string.error_register_message));
                 }
@@ -63,21 +67,19 @@ public class RegisterActivity extends AppCompatActivity {
                         .add("email", email)
                         .build();
                 Request request = new Request.Builder().url(HOST + "/api/user/register").post(formBody).build();
-                Future<String> response = exec.submit(new com.shanmingc.yi.network.Request(request));
-                try {
-                    while (!response.isDone()) {
-                        Thread.sleep(200);
-                    }
-                    String json = response.get();
-                    Gson gson = new Gson();
-                    UserMessage message = gson.fromJson(json, UserMessage.class);
-                    loading.setVisibility(View.GONE);
-                    if(message.getUsername().length() > 0)
-                        onSuccess(message.getMessage());
-                    else onFailed(message.getMessage());
-                } catch (Exception e) {
-                    Log.d(TAG, "get response failed" + e);
-                }
+
+                Map<String, Object> user = RequestProxy.waitForResponse(request);
+
+                UserMessage message = new UserMessage(
+                        (String) user.get("username"),
+                        (String) user.get("message"),
+                        (long) user.get("uid"));
+
+                loading.setVisibility(View.GONE);
+                if (message.getUsername().length() > 0)
+                    onSuccess(message.getMessage());
+                else onFailed(message.getMessage());
+
             }
         });
     }

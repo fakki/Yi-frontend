@@ -3,10 +3,12 @@ package com.shanmingc.yi.model;
 public class UserMessage {
     private String username;
     private String message;
+    private long uid;
 
-    public UserMessage(String username, String message) {
+    public UserMessage(String username, String message, long uid) {
         this.username = username;
         this.message = message;
+        this.uid = uid;
     }
 
     public String getMessage() {
@@ -15,6 +17,10 @@ public class UserMessage {
 
     public String getUsername() {
         return username;
+    }
+
+    public long getUid() {
+        return uid;
     }
 
     public void setMessage(String message) {

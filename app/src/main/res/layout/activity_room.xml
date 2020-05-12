@@ -5,14 +5,118 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.RoomActivity">
-    <Button android:id="@+id/start"
-            android:text="开始"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        tools:context=".activity.RoomActivity"  android:background="@drawable/board_bg6">
+
+    <de.hdodenhof.circleimageview.CircleImageView android:layout_width="50dp"
+                                                  android:layout_height="50dp"
+                                                  app:layout_constraintLeft_toLeftOf="parent"
+                                                  app:layout_constraintTop_toTopOf="parent"
+                                                  app:layout_constraintRight_toRightOf="parent"
+                                                  app:layout_constraintBottom_toTopOf="@id/friend_battle"
+                                                  app:layout_constraintHorizontal_bias="0.1"
+                                                  app:layout_constraintVertical_bias="0.1"
+                                                  android:src="@drawable/ahaha"/>
+
+    <androidx.cardview.widget.CardView android:id="@+id/friend_battle"
+                                       android:layout_width="wrap_content"
+                                       android:layout_height="wrap_content"
+                                       app:layout_constraintLeft_toLeftOf="parent"
+                                       app:layout_constraintBottom_toBottomOf="parent"
+                                       app:layout_constraintRight_toRightOf="parent"
+                                       app:layout_constraintTop_toTopOf="parent"
+                                       app:layout_constraintVertical_bias="0.3"
+                                       android:backgroundTint="@color/card_button"
+                                       app:cardCornerRadius="15dp"
+                                       app:cardElevation="@dimen/cardview_default_elevation">
+        <TextView android:layout_width="wrap_content"
+                  android:text="好友对战"
+                  android:textColor="@color/white"
+                  android:textSize="20sp"
+                  android:layout_height="match_parent"
+                  android:layout_marginRight="40dp"
+                  android:layout_marginLeft="40dp"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginBottom="10dp"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView android:id="@+id/join_battle"
+                                       android:layout_width="wrap_content"
+                                       android:layout_height="wrap_content"
+                                       app:layout_constraintLeft_toLeftOf="parent"
+                                       app:layout_constraintBottom_toBottomOf="@id/online_battle"
+                                       app:layout_constraintRight_toRightOf="parent"
+                                       app:layout_constraintTop_toTopOf="@id/friend_battle"
+                                       android:backgroundTint="@color/card_button"
+                                       app:cardCornerRadius="15dp"
+                                       app:cardElevation="@dimen/cardview_default_elevation">
+        <TextView android:layout_width="wrap_content"
+                  android:text="加入对战"
+                  android:textColor="@color/white"
+                  android:textSize="20sp"
+                  android:layout_height="match_parent"
+                  android:layout_marginRight="40dp"
+                  android:layout_marginLeft="40dp"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginBottom="10dp"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView android:id="@+id/online_battle"
+                                       android:text="在线对战"
+                                       android:layout_width="wrap_content"
+                                       android:layout_height="wrap_content"
+                                       app:layout_constraintRight_toRightOf="parent"
+                                       app:layout_constraintLeft_toLeftOf="parent"
+                                       app:layout_constraintBottom_toBottomOf="parent"
+                                       app:layout_constraintTop_toTopOf="@id/friend_battle"
+                                       android:backgroundTint="@color/card_button"
+                                       app:cardCornerRadius="15dp"
+                                       app:cardElevation="@dimen/cardview_default_elevation">
+        <TextView android:layout_width="wrap_content"
+                  android:text="在线对战"
+                  android:textColor="@color/white"
+                  android:textSize="20sp"
+                  android:layout_height="match_parent"
+                  android:layout_marginRight="40dp"
+                  android:layout_marginLeft="40dp"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginBottom="10dp"/>
+    </androidx.cardview.widget.CardView>
+
+    <ImageButton android:id="@+id/friend"
+                 android:src="@drawable/friend"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 app:layout_constraintRight_toRightOf="@id/friend_battle"
+                 app:layout_constraintLeft_toLeftOf="parent"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/online_battle"
+                 app:layout_constraintHorizontal_bias="0.1"
+                 app:layout_constraintVertical_bias="0.9"
+                 android:background="@android:color/transparent"/>
+
+    <ImageButton android:id="@+id/help"
+                 android:src="@drawable/help"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 app:layout_constraintRight_toRightOf="parent"
+                 app:layout_constraintLeft_toRightOf="@id/friend"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/online_battle"
+                 app:layout_constraintHorizontal_bias="0.9"
+                 app:layout_constraintVertical_bias="0.9"
+                 android:background="@android:color/transparent"/>
+
+    <ProgressBar
+            android:id="@+id/loading"
+            android:visibility="gone"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="64dp"
+            android:layout_marginBottom="64dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
