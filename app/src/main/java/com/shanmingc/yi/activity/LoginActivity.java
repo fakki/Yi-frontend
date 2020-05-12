@@ -20,7 +20,8 @@ import com.shanmingc.yi.R;
 import com.shanmingc.yi.model.UserMessage;
 import com.shanmingc.yi.network.RequestProxy;
 import okhttp3.*;
-import java.util.concurrent.*;
+
+import java.util.Map;
 
 import static com.shanmingc.yi.activity.RegisterActivity.HOST;
 import static com.shanmingc.yi.activity.RoomActivity.IS_LOGIN;
@@ -33,9 +34,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private ProgressBar loading;
 
-    private ExecutorService exec = Executors.newCachedThreadPool();
-
     private static final String TAG = "LoginActivity";
+
+    public static final String USER_ID = "user_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,40 +104,23 @@ public class LoginActivity extends AppCompatActivity {
                 Request request = new Request.Builder().url(HOST + "/api/user/login").
                         post(formBody).build();
 
-                RequestProxy proxy = RequestProxy.getInstance();
-                proxy.request(request);
-                //轮询等待response到达客户端
-                while (!proxy.isDone()) {
-                    if(proxy.isFailed()) {
-                        onFailed("获取失败");
-                        return;
-                    }
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        Log.d(TAG, e.toString());
-                    }
-                }
+                Map<String, Object> user = RequestProxy.waitForResponse(request);
 
-                //解析返回的json
-                Gson gson = new Gson();
-                UserMessage message;
-                try {
-                    message = gson.fromJson(proxy.response().body().string(), UserMessage.class);
-                } catch (Exception e) {
-                    Log.d(TAG, "json parse error: " + e);
-                    finish();
-                    return;
-                }
                 loading.setVisibility(View.GONE);
+
+                UserMessage message = new UserMessage(
+                        (String) user.get("username"),
+                        (String) user.get("message"),
+                        (long) user.get("uid"));
                 if(message.getUsername().length() > 0)
-                    onSuccess(message.getMessage());
-                else onFailed(message.getMessage());
+                    onSuccess(message);
+                else onFailed(message);
             }
         });
     }
 
-    private void onFailed(String message) {
+    private void onFailed(UserMessage msg) {
+        String message = msg.getMessage();
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage(message)
                 .setNeutralButton(R.string.accept, new DialogInterface.OnClickListener() {
@@ -148,11 +132,13 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "login failed: " + message);
     }
 
-    private void onSuccess(String message) {
+    private void onSuccess(UserMessage msg) {
+        String message = msg.getMessage();
         Log.d(TAG, "login success: " + message);
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         SharedPreferences preferences = getSharedPreferences(USER_PREFERENCES, MODE_PRIVATE);
         preferences.edit().putBoolean(IS_LOGIN, true).apply();
+        preferences.edit().putLong(USER_ID, msg.getUid()).apply();
         finish();
     }
 }

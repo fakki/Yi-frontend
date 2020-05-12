@@ -17,4 +17,7 @@
     <string name="valid_password">不少于8个字符(字母、数字及下划线)</string>
     <string name="invalid_email">邮箱格式错误</string>
     <string name="login_failed">登录失败</string>
+    <string name="code_tint">请通知你的好友在加入好友对局中输入密码：</string>
+    <string name="please_wait">请稍候</string>
+    <string name="invite_code_tint">输入邀请码</string>
 </resources>
