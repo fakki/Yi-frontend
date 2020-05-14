@@ -38,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String USER_ID = "user_id";
 
+    public static final String USER_NAME = "username";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,8 +139,11 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "login success: " + message);
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         SharedPreferences preferences = getSharedPreferences(USER_PREFERENCES, MODE_PRIVATE);
-        preferences.edit().putBoolean(IS_LOGIN, true).apply();
-        preferences.edit().putLong(USER_ID, msg.getUid()).apply();
+        preferences.edit()
+                .putBoolean(IS_LOGIN, true)
+                .putLong(USER_ID, msg.getUid())
+                .putString(USER_NAME, msg.getUsername())
+                .apply();
         finish();
     }
 }

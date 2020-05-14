@@ -10,19 +10,21 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
-            android:usesCleartextTraffic="true" android:networkSecurityConfig="@xml/network_security_config">
+            android:usesCleartextTraffic="true"
+            android:networkSecurityConfig="@xml/network_security_config">
         <activity android:name=".activity.RegisterActivity">
         </activity>
         <activity android:name=".activity.LoginActivity">
         </activity>
         <activity android:name=".activity.RoomActivity">
+
+        </activity>
+        <activity android:name=".activity.BoardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity android:name=".activity.BoardActivity">
         </activity>
     </application>
 </manifest>
