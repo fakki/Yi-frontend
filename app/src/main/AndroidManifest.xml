@@ -26,7 +26,5 @@
         </activity>
         <activity android:name=".activity.ForgetActivity">
         </activity>
-        <activity android:name=".activity.ResetPasswordActivity">
-        </activity>
     </application>
 </manifest>

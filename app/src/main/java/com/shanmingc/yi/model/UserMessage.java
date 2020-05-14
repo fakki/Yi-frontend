@@ -11,6 +11,9 @@ public class UserMessage {
         this.uid = uid;
     }
 
+    public UserMessage(String username, String message) {
+    }
+
     public String getMessage() {
         return message;
     }

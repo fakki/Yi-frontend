@@ -21,11 +21,9 @@ import com.shanmingc.yi.model.UserMessage;
 import com.shanmingc.yi.network.RequestProxy;
 import okhttp3.*;
 
-<<<<<<< HEAD
-import java.util.concurrent.*;
-=======
+
 import java.util.Map;
->>>>>>> upstream/master
+
 
 import static com.shanmingc.yi.activity.RegisterActivity.HOST;
 import static com.shanmingc.yi.activity.RoomActivity.IS_LOGIN;
