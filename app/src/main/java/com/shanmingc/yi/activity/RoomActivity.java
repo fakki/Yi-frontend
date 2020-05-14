@@ -142,9 +142,11 @@ public class RoomActivity extends AppCompatActivity {
 
         SharedPreferences roomPreference = getSharedPreferences(ROOM_PREFERENCE, MODE_PRIVATE);
         code = (String) room.get("code");
-        roomPreference.edit().putString(ROOM_CODE, code).apply();
-        roomPreference.edit().putString(ROOM_ID, (String) room.get("room_id")).apply();
-        roomPreference.edit().putLong(ROOM_OWNER, (Long) room.get("room_owner")).apply();
+        roomPreference.edit()
+                .putString(ROOM_CODE, code)
+                .putString(ROOM_ID, (String) room.get("room_id"))
+                .putLong(ROOM_OWNER, (Long) room.get("room_owner"))
+                .apply();
 
 
         loading.setVisibility(View.GONE);
