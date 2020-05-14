@@ -65,7 +65,16 @@ public class RoomActivity extends AppCompatActivity {
         online_battle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
+                SharedPreferences preferences = getSharedPreferences(USER_PREFERENCES, MODE_PRIVATE);
+                preferences.edit().putBoolean(IS_LOGIN, true).apply();
+                boolean isLogin = preferences.getBoolean(IS_LOGIN, false);
+                if(isLogin)
+                    startActivity(new Intent(RoomActivity.this, BoardActivity.class));
+                else startActivity(new Intent(RoomActivity.this, LoginActivity.class));
+=======
 
+>>>>>>> upstream/master
             }
         });
     }
