@@ -1,4 +1,7 @@
 package com.shanmingc.yi.Fragment;
 
-public class PersonalFragment {
+import androidx.fragment.app.Fragment;
+
+public class PersonalFragment extends Fragment {
+
 }

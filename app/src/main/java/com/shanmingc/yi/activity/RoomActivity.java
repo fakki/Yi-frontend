@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +46,14 @@ public class RoomActivity extends AppCompatActivity {
 
         loading = findViewById(R.id.loading);
 
+        Button rebutton =findViewById(R.id.re_button);
+        rebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RoomActivity.this,GameMenuActivity.class));
+            }
+        });
+
         CardView friend_battle = findViewById(R.id.friend_battle);
         friend_battle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,16 +74,12 @@ public class RoomActivity extends AppCompatActivity {
         online_battle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
                 SharedPreferences preferences = getSharedPreferences(USER_PREFERENCES, MODE_PRIVATE);
                 preferences.edit().putBoolean(IS_LOGIN, true).apply();
                 boolean isLogin = preferences.getBoolean(IS_LOGIN, false);
                 if(isLogin)
                     startActivity(new Intent(RoomActivity.this, BoardActivity.class));
                 else startActivity(new Intent(RoomActivity.this, LoginActivity.class));
-=======
-
->>>>>>> upstream/master
             }
         });
     }
