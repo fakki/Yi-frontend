@@ -15,11 +15,13 @@ import android.os.Bundle;
 import com.google.gson.Gson;
 import com.shanmingc.yi.R;
 import com.shanmingc.yi.model.UserMessage;
+import com.shanmingc.yi.network.RequestProxy;
 import okhttp3.FormBody;
 import okhttp3.Request;
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -38,6 +40,7 @@ import static com.shanmingc.yi.activity.RegisterActivity.HOST;
 public class ForgetActivity extends AppCompatActivity{
 
     private String email;
+    private String newpassword;
 
     private ProgressBar loading;
 
@@ -50,7 +53,7 @@ public class ForgetActivity extends AppCompatActivity{
         setContentView(R.layout.activity_forget);
 
         EditText emailEdit = findViewById(R.id.email);
-
+        final EditText newpasswordEdit = findViewById(R.id.newpassword);
         Button forgetButton = findViewById(R.id.forgotPassword);
 
         emailEdit.addTextChangedListener(new TextWatcher(){
@@ -68,61 +71,69 @@ public class ForgetActivity extends AppCompatActivity{
             }
         });
 
+        newpasswordEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    newpassword = charSequence.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         forgetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*loading.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.VISIBLE);
                 FormBody formBody = new FormBody.Builder()
                         .add("email", email)
+                        .add("password",newpassword)
                         .build();
                 Request request = new Request.Builder().url(HOST + "/api/user/login/forgetpassword")
                         .post(formBody).build();
-                Future<String> response = exec.submit(new com.shanmingc.yi.network.Request(request));
-                while (!response.isDone()) {
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        Log.d(TAG, e.toString());
-                    }
-                }
-                Gson gson = new Gson();
-                UserMessage message;
-                try {
-                    message = gson.fromJson(response.get(),UserMessage.class);
-                }   catch (Exception e){
-                    Log.d(TAG,"json parse error:" + e);
-                    finish();
-                    return;
-                }
+
+                Map<String,Object> user = RequestProxy.waitForResponse(request);
+
                 loading.setVisibility(View.GONE);
+
+                UserMessage message = new UserMessage(
+                        (String) user.get("username"),
+                        (String) user.get("message"));
                 if(message.getUsername().length() > 0)
                 {
-                    onSuccess(message.getMessage());
+                    onSuccess(message);
                     startActivity(new Intent(ForgetActivity.this,ResetPasswordActivity.class));
                 }
                 else {
-                    onFailed(message.getMessage());
+                    onFailed(message);
                     startActivity(new Intent(ForgetActivity.this,ForgetActivity.class));
-                }*/
+                }
             }
         });
     }
 
-    private void onFailed(String message){
+    private void onFailed(UserMessage message){
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setMessage(message)
+        dialog.setMessage((CharSequence) message)
                 .setNeutralButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 }).show();
-        Log.d(TAG,"Not find ：" + message);
+        Log.d(TAG,"Not find your account：" + message);
     }
 
-    private void onSuccess(String message){
-       Log.d(TAG,"found it:"+message);
-
+    private void onSuccess(UserMessage message){
+       Log.d(TAG,"found it and completed:"+message);
+       startActivity(new Intent(ForgetActivity.this,LoginActivity.class));
        finish();
     }
 }

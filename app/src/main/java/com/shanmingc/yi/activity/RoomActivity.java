@@ -57,6 +57,14 @@ public class RoomActivity extends AppCompatActivity {
 
         userPreference = getSharedPreferences(USER_PREFERENCE, MODE_PRIVATE);
 
+        Button rebutton =findViewById(R.id.re_button);
+        rebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RoomActivity.this,GameMenuActivity.class));
+            }
+        });
+
         CardView friend_battle = findViewById(R.id.friend_battle);
         friend_battle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +85,11 @@ public class RoomActivity extends AppCompatActivity {
         online_battle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 SharedPreferences preferences = getSharedPreferences(USER_PREFERENCE, MODE_PRIVATE);
+=======
+                SharedPreferences preferences = getSharedPreferences(USER_PREFERENCES, MODE_PRIVATE);
+>>>>>>> fe4108d2640ee16501d0ae081e7f4f5fc9126ecb
                 preferences.edit().putBoolean(IS_LOGIN, true).apply();
                 boolean isLogin = preferences.getBoolean(IS_LOGIN, false);
                 if(isLogin)

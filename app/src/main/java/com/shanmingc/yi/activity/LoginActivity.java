@@ -21,7 +21,6 @@ import com.shanmingc.yi.model.UserMessage;
 import com.shanmingc.yi.network.RequestProxy;
 import okhttp3.*;
 
-import java.util.concurrent.*;
 
 import java.util.Map;
 
