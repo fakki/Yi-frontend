@@ -21,15 +21,13 @@ import com.shanmingc.yi.model.UserMessage;
 import com.shanmingc.yi.network.RequestProxy;
 import okhttp3.*;
 
-<<<<<<< HEAD
 import java.util.concurrent.*;
-=======
+
 import java.util.Map;
->>>>>>> upstream/master
 
 import static com.shanmingc.yi.activity.RegisterActivity.HOST;
 import static com.shanmingc.yi.activity.RoomActivity.IS_LOGIN;
-import static com.shanmingc.yi.activity.RoomActivity.USER_PREFERENCES;
+import static com.shanmingc.yi.activity.RoomActivity.USER_PREFERENCE;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -125,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                 UserMessage message = new UserMessage(
                         (String) user.get("username"),
                         (String) user.get("message"),
-                        (long) user.get("uid"));
+                        ((Double) user.get("uid")).longValue());
                 if(message.getUsername().length() > 0)
                     onSuccess(message);
                 else onFailed(message);
@@ -150,12 +148,12 @@ public class LoginActivity extends AppCompatActivity {
         String message = msg.getMessage();
         Log.d(TAG, "login success: " + message);
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        SharedPreferences preferences = getSharedPreferences(USER_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(USER_PREFERENCE, MODE_PRIVATE);
         preferences.edit()
                 .putBoolean(IS_LOGIN, true)
                 .putLong(USER_ID, msg.getUid())
                 .putString(USER_NAME, msg.getUsername())
                 .apply();
-        finish();
+        startActivity(new Intent(this, RoomActivity.class));
     }
 }

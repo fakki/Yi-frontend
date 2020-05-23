@@ -10,30 +10,18 @@ import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.google.gson.Gson;
 import com.shanmingc.yi.R;
 import com.shanmingc.yi.model.UserMessage;
 import com.shanmingc.yi.network.RequestProxy;
 import okhttp3.FormBody;
 import okhttp3.Request;
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
 
-<<<<<<< HEAD
-    public static final String HOST = "http://192.168.1.102:8081";
-=======
     public static final String HOST = "http://192.168.1.5:8081";
->>>>>>> upstream/master
 
     private String username;
     private String password;

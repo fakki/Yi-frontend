@@ -71,7 +71,7 @@ public class ForgetActivity extends AppCompatActivity{
         forgetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loading.setVisibility(View.VISIBLE);
+                /*loading.setVisibility(View.VISIBLE);
                 FormBody formBody = new FormBody.Builder()
                         .add("email", email)
                         .build();
@@ -103,7 +103,7 @@ public class ForgetActivity extends AppCompatActivity{
                 else {
                     onFailed(message.getMessage());
                     startActivity(new Intent(ForgetActivity.this,ForgetActivity.class));
-                }
+                }*/
             }
         });
     }

@@ -18,7 +18,7 @@ import java.util.concurrent.Future;
 
 import static com.shanmingc.yi.activity.RegisterActivity.HOST;
 import static com.shanmingc.yi.activity.RoomActivity.IS_LOGIN;
-import static com.shanmingc.yi.activity.RoomActivity.USER_PREFERENCES;
+import static com.shanmingc.yi.activity.RoomActivity.USER_PREFERENCE;
 public class ResetPasswordActivity  extends AppCompatActivity {
 
     private String password;
@@ -63,7 +63,7 @@ public class ResetPasswordActivity  extends AppCompatActivity {
                         .build();
                 Request request = new Request.Builder().url(HOST + "/api/user/login/forgetpassword/resetpassword").
                         post(formBody).build();
-                Future<String> response = exec.submit(new com.shanmingc.yi.network.Request(request));
+                //Future<String> response = exec.submit(new com.shanmingc.yi.network.Request(request));
                 //while (!response.isDone())
             }
         });

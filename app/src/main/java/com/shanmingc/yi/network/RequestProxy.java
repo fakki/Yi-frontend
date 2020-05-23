@@ -3,6 +3,7 @@ package com.shanmingc.yi.network;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.shanmingc.yi.activity.BoardActivity;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class RequestProxy implements Callback {
 
     private boolean isExecute;
 
-    private Response response;
+    private String response;
 
     public static final String TAG = "RequestProxy";
 
@@ -37,7 +38,33 @@ public class RequestProxy implements Callback {
     }
 
     public static Map<String, Object> waitForResponse(Request request) {
-        RequestProxy proxy = RequestProxy.getInstance();
+
+        /*OkHttpClient client = new OkHttpClient();
+        Response response = null;
+
+        try {
+            response = client.newCall(request).execute();
+        } catch (Exception e) {
+            Log.d(TAG, "response failed");
+        }
+
+        Map<String, Object> map = new HashMap<>();
+
+
+
+        if(response == null) {
+            Log.d(TAG, "response == null");
+            return null;
+        }
+        try {
+            Gson gson = new Gson();
+            map = gson.fromJson(response.body().string(), new TypeToken<Map<String, Object>>() {
+            }.getType());
+        } catch (Exception e) {
+            Log.d(TAG, "parse error");
+        }
+
+        return map;*/
 
         Map<String, Object> map = new HashMap<>();
 
@@ -46,12 +73,14 @@ public class RequestProxy implements Callback {
             while (!proxy.isDone()) {
                 Thread.sleep(100);
             }
-            Response response = proxy.response();
+
+            String response = proxy.response();
 
             Gson gson = new Gson();
-            map = gson.fromJson(response.body().string(), new TypeToken<Map<String, Object>>(){}.getType());
+            map = gson.fromJson(response, new TypeToken<Map<String, Object>>(){}.getType());
         } catch (Exception e) {
-            Log.d(TAG, e.toString());
+            BoardActivity.logResponse(TAG, map, "illegal state exception");
+            e.printStackTrace();
         }
         return map;
     }
@@ -64,11 +93,11 @@ public class RequestProxy implements Callback {
 
     @Override
     public void onResponse(Call call, Response response) throws IOException {
-        this.response = response;
+        this.response = response.body().string();
         isDone = true;
     }
 
-    public Response response() throws RuntimeException {
+    public String response() throws RuntimeException {
         if(!isExecute) {
             throw new RuntimeException("Request proxy not send a request.");
         }
