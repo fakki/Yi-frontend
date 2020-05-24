@@ -4,21 +4,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="94dp">
+
         <TextView
 
                 android:layout_width="match_parent"
-                android:layout_height="30dp" android:id="@+id/TVrecord"/>
+                android:layout_height="30dp"
+                android:id="@+id/TVrecord"/>
         <TextView
 
                 android:layout_width="match_parent"
-                android:layout_height="32dp" android:id="@+id/TVround"/>
+                android:layout_height="32dp"
+                android:id="@+id/TVround"/>
         <TextView
 
                 android:layout_width="match_parent"
-                android:layout_height="30dp" android:id="@+id/TVtime"/>
-    </LinearLayout>
+                android:layout_height="30dp"
+                android:id="@+id/TVtime"/>
+
 </LinearLayout>
