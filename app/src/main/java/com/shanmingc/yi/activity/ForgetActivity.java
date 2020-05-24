@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -91,7 +92,7 @@ public class ForgetActivity extends AppCompatActivity{
         forgetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loading.setVisibility(View.VISIBLE);
+                /*loading.setVisibility(View.VISIBLE);
                 FormBody formBody = new FormBody.Builder()
                         .add("email", email)
                         .add("password",newpassword)
@@ -114,7 +115,8 @@ public class ForgetActivity extends AppCompatActivity{
                 else {
                     onFailed(message);
                     startActivity(new Intent(ForgetActivity.this,ForgetActivity.class));
-                }
+                }*/
+                onSuccess(new UserMessage("default", "success"));
             }
         });
     }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import com.shanmingc.yi.R;
 import com.shanmingc.yi.activity.GameMenuActivity;
@@ -22,7 +23,7 @@ public class BattleListFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        Button bt_button = getActivity().findViewById(R.id.battle_button);
+        CardView bt_button = getActivity().findViewById(R.id.battle_button);
 
         bt_button.setOnClickListener(new View.OnClickListener(){
             @Override
