@@ -9,14 +9,15 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:textColor="@color/black"
                 android:id="@+id/TVrecord"/>
         <TextView
-
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:id="@+id/TVround"/>
         <TextView
-
+                android:textColor="@color/lightgray"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/TVtime"/>

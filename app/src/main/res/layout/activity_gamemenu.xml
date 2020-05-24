@@ -31,7 +31,8 @@
     </com.google.android.material.tabs.TabLayout>
     <androidx.viewpager.widget.ViewPager
             android:layout_width="412dp"
-            android:layout_height="685dp"
+            android:layout_height="0dp"
+            android:layout_weight="15"
             android:id="@+id/vp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
