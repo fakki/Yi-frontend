@@ -46,13 +46,6 @@ public class RoomActivity extends AppCompatActivity {
 
         loading = findViewById(R.id.loading);
 
-        Button rebutton =findViewById(R.id.re_button);
-        rebutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(RoomActivity.this,GameMenuActivity.class));
-            }
-        });
 
         CardView friend_battle = findViewById(R.id.friend_battle);
         friend_battle.setOnClickListener(new View.OnClickListener() {

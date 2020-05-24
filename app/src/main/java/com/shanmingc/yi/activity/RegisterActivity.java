@@ -10,6 +10,7 @@ import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.cardview.widget.CardView;
 import com.google.gson.Gson;
 import com.shanmingc.yi.R;
 import com.shanmingc.yi.model.UserMessage;
@@ -50,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void initRegisterButton() {
-        Button button = findViewById(R.id.register);
+        CardView button = findViewById(R.id.register);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

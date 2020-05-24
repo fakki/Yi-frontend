@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Gamemenu_FragmentPagerAdapter extends FragmentPagerAdapter {
     List<Fragment> fragmentList = new ArrayList<>();
-    private String[] Titles = new String[]{"Tab1","Tab2","Tab3"};
+    private String[] Titles = new String[]{"对战模式","个人战绩","我的"};
 
     public Gamemenu_FragmentPagerAdapter(FragmentManager fm){
         super(fm);

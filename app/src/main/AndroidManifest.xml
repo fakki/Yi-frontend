@@ -15,11 +15,7 @@
         <activity android:name=".activity.RegisterActivity">
         </activity>
         <activity android:name=".activity.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".activity.RoomActivity">
 
@@ -29,6 +25,11 @@
         <activity android:name=".activity.ForgetActivity">
         </activity>
         <activity android:name=".activity.GameMenuActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
     </application>
 </manifest>

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.cardview.widget.CardView;
 import com.google.gson.Gson;
 import com.shanmingc.yi.R;
 import com.shanmingc.yi.model.UserMessage;
@@ -85,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
 
         loading = findViewById(R.id.loading);
 
-        Button registerButton = findViewById(R.id.register);
+        CardView registerButton = findViewById(R.id.register);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button  forgotPasswordButton = findViewById(R.id.forgotPassword);
+        CardView forgotPasswordButton = findViewById(R.id.forgetfound);
         forgotPasswordButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -101,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button loginButton = findViewById(R.id.login);
+        CardView loginButton = findViewById(R.id.login);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,5 +156,6 @@ public class LoginActivity extends AppCompatActivity {
                 .putString(USER_NAME, msg.getUsername())
                 .apply();
         finish();
+        startActivity(new Intent(LoginActivity.this,GameMenuActivity.class));
     }
 }
