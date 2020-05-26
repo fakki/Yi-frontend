@@ -18,6 +18,11 @@
     <string name="invalid_email">邮箱格式错误</string>
     <string name="login_failed">登录失败</string>
     <string name="code_tint">请通知你的好友在加入好友对局中输入密码：</string>
-    <string name="please_wait">请稍候</string>
+    <string name="loading">加载中...</string>
     <string name="invite_code_tint">输入邀请码</string>
+    <string name="game_start">游戏开始</string>
+    <string name="your_turn">轮到你了</string>
+    <string name="ready">准备</string>
+    <string name="not_ready">未准备</string>
+    <string name="cancel_ready">取消准备</string>
 </resources>

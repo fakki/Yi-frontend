@@ -20,12 +20,10 @@ public class Gamemenu_FragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 1)
-            return new RecordFragment();
-        else if (position == 2)
-            return new PersonalFragment();
-
-        return new BattleListFragment();
+        Fragment fragment = fragmentList.get(position);
+        if(position == 1)
+            ((RecordFragment) fragment).getData();
+        return fragment;
     }
 
     @Override

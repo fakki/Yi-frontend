@@ -1,6 +1,8 @@
 package com.shanmingc.yi.Fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,9 @@ import com.shanmingc.yi.R;
 import java.util.List;
 import java.util.Map;
 
+import static com.shanmingc.yi.activity.LoginActivity.USER_ID;
+import static com.shanmingc.yi.activity.RoomActivity.USER_PREFERENCE;
+
 public class RecordFragment_ListViewAdapter extends BaseAdapter {
     private List<Map<String,Object>> data;
     private LayoutInflater layoutInflater;
@@ -19,10 +24,6 @@ public class RecordFragment_ListViewAdapter extends BaseAdapter {
         this.context = context;
         this.data = data;
         this.layoutInflater = LayoutInflater.from(context);
-    }
-
-    public final class Contrllist{
-        public TextView TVrecord,TVtime,TVround;
     }
 
     @Override
@@ -39,20 +40,26 @@ public class RecordFragment_ListViewAdapter extends BaseAdapter {
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        Contrllist contrl = null;
         if(convertView == null){
-            contrl = new Contrllist();
             convertView = layoutInflater.inflate(R.layout.recordlistview,null);
-            contrl.TVrecord = convertView.findViewById(R.id.TVrecord);
-            contrl.TVround = convertView.findViewById(R.id.TVround);
-            contrl.TVtime = convertView.findViewById(R.id.TVtime);
-            convertView.setTag(contrl);
         }
-        else contrl =(Contrllist) convertView.getTag();
 
-        contrl.TVrecord.setText((String)data.get(position).get("record"));
-        contrl.TVround.setText((String)data.get(position).get("round"));
-        contrl.TVtime.setText((String)data.get(position).get("time"));
+        SharedPreferences userPreference = context.getSharedPreferences(USER_PREFERENCE, Context.MODE_PRIVATE);
+        long id = userPreference.getLong(USER_ID, 0);
+
+        Map<String, Object> m = data.get(position);
+        long black_id = ((Double) m.get("black_id")).longValue();
+        int step_count = ((Double) m.get("step_count")).intValue();
+        boolean blackWin = (step_count % 2 == 1);
+
+
+        TextView record = convertView.findViewById(R.id.TVrecord);
+        Log.d("record", "blackWin: " + blackWin + " id == black_id: " + (id == black_id));
+        if(blackWin == (id == black_id))
+            record.setText("胜利");
+        else record.setText("失败");
+        TextView round = convertView.findViewById(R.id.TVround);
+        round.setText("总步数：" + step_count);
         return convertView;
     }
 }

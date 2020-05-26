@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -38,7 +39,7 @@ import java.util.concurrent.Future;
 
 import static com.shanmingc.yi.activity.RegisterActivity.HOST;
 
-public class ForgetActivity extends AppCompatActivity{
+public class ForgetActivity extends AppCompatActivity {
 
     private String email;
     private String newpassword;
@@ -48,6 +49,7 @@ public class ForgetActivity extends AppCompatActivity{
     private ExecutorService exec = Executors.newCachedThreadPool();
 
     private static final String TAG = "ForgetActivity";
+
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
@@ -93,34 +95,59 @@ public class ForgetActivity extends AppCompatActivity{
         CardView forgetfind = findViewById(R.id.forgetfound);
         forgetfind.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                forgetfinding();
+            public void onClick(View v) {
+                /*loading.setVisibility(View.VISIBLE);
+                FormBody formBody = new FormBody.Builder()
+                        .add("email", email)
+                        .add("password",newpassword)
+                        .build();
+                Request request = new Request.Builder().url(HOST + "/api/user/login/forgetpassword")
+                        .post(formBody).build();
+
+                Map<String,Object> user = RequestProxy.waitForResponse(request);
+
+                loading.setVisibility(View.GONE);
+
+                UserMessage message = new UserMessage(
+                        (String) user.get("username"),
+                        (String) user.get("message"));
+                if(message.getUsername().length() > 0)
+                {
+                    onSuccess(message);
+                    startActivity(new Intent(ForgetActivity.this,ResetPasswordActivity.class));
+                }
+                else {
+                    onFailed(message);
+                    startActivity(new Intent(ForgetActivity.this,ForgetActivity.class));
+                }*/
+                onSuccess(new UserMessage("default", "success"));
             }
         });
     }
 
-        private void forgetfinding () {
-            loading.setVisibility(View.VISIBLE);
-            FormBody formBody = new FormBody.Builder()
-                    .add("email", email)
-                    .add("password", newpassword)
-                    .build();
-            Request request = new Request.Builder().url(HOST + "/api/user/login/forgetpassword")
-                    .post(formBody).build();
 
-            Map<String, Object> user = RequestProxy.waitForResponse(request);
+    private void forgetfinding() {
+        loading.setVisibility(View.VISIBLE);
+        FormBody formBody = new FormBody.Builder()
+                .add("email", email)
+                .add("password", newpassword)
+                .build();
+        Request request = new Request.Builder().url(HOST + "/api/user/login/forgetpassword")
+                .post(formBody).build();
 
-            loading.setVisibility(View.GONE);
+        Map<String, Object> user = RequestProxy.waitForResponse(request);
 
-            UserMessage message = new UserMessage(
-                    (String) user.get("username"),
-                    (String) user.get("message"));
-            if (message.getUsername().length() > 0)
-                onSuccess(message);
-            else onFailed(message);
-        }
+        loading.setVisibility(View.GONE);
 
-    private void onFailed(UserMessage message){
+        UserMessage message = new UserMessage(
+                (String) user.get("username"),
+                (String) user.get("message"));
+        if (message.getUsername().length() > 0)
+            onSuccess(message);
+        else onFailed(message);
+    }
+
+    private void onFailed(UserMessage message) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage((CharSequence) message)
                 .setNeutralButton("确认", new DialogInterface.OnClickListener() {
@@ -129,12 +156,14 @@ public class ForgetActivity extends AppCompatActivity{
 
                     }
                 }).show();
-        Log.d(TAG,"Not find your account：" + message);
+        Log.d(TAG, "Not find your account：" + message);
     }
 
-    private void onSuccess(UserMessage message){
-       Log.d(TAG,"found it and completed:"+message);
-       startActivity(new Intent(ForgetActivity.this,LoginActivity.class));
-       finish();
+    private void onSuccess(UserMessage message) {
+        Log.d(TAG, "found it and completed:" + message);
+        startActivity(new Intent(ForgetActivity.this, LoginActivity.class));
+        finish();
     }
 }
+
+
