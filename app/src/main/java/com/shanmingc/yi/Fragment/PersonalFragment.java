@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import com.shanmingc.yi.R;
 import com.shanmingc.yi.activity.LoginActivity;
@@ -19,12 +20,13 @@ import static com.shanmingc.yi.activity.RoomActivity.USER_PREFERENCE;
 
 public class PersonalFragment extends Fragment {
 
-    private ItemGroup quit,mine,setting;
-
+    private ItemGroup mine,setting;
+    private CardView quit;
+    private View view;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.personal_fragment,null);
+        View v = inflater.inflate(R.layout.personal_fragment, null);
         quit = v.findViewById(R.id.quit);
         mine = v.findViewById(R.id.mine);
         setting = v.findViewById(R.id.setting);

@@ -5,6 +5,7 @@
 
     <ListView
             android:id="@+id/Recordlist"
+<<<<<<< HEAD
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="1dp"
@@ -14,3 +15,14 @@
             android:layout_marginTop="1dp"
             android:layout_marginBottom="1dp"/>
 </LinearLayout>
+=======
+            android:layout_width="410dp"
+            android:layout_height="694dp"
+            android:layout_marginTop="36dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+>>>>>>> 7308dbb222fd0b832aa72f481712236e26e72c0d

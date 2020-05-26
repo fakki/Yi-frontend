@@ -29,6 +29,7 @@
                 android:text="我的"/>
     </com.google.android.material.tabs.TabLayout>
     <androidx.viewpager.widget.ViewPager
+<<<<<<< HEAD
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="15"
@@ -47,6 +48,29 @@
         <fragment
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+=======
+            android:layout_width="412dp"
+            android:layout_height="0dp"
+            android:layout_weight="15"
+            android:id="@+id/vp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+            app:layout_constraintBottom_toBottomOf="parent">
+        <fragment
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:name="com.shanmingc.yi.Fragment.BattleListFragment"
+                android:id="@+id/fragment"/>
+        <fragment
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:name="com.shanmingc.yi.Fragment.PersonalFragment"
+                android:id="@+id/fragment2"/>
+        <fragment
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+>>>>>>> 7308dbb222fd0b832aa72f481712236e26e72c0d
                 android:name="com.shanmingc.yi.Fragment.RecordFragment"
                 android:id="@+id/fragment3"/>
     </androidx.viewpager.widget.ViewPager>
