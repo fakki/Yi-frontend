@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Gamemenu_FragmentPagerAdapter extends FragmentPagerAdapter {
     List<Fragment> fragmentList = new ArrayList<>();
-    private String[] Titles = new String[]{"Tab1","Tab2","Tab3"};
+    private String[] Titles = new String[]{"对战模式","个人战绩","我的"};
 
     public Gamemenu_FragmentPagerAdapter(FragmentManager fm){
         super(fm);
@@ -20,12 +20,10 @@ public class Gamemenu_FragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 1)
-            return new RecordFragment();
-        else if (position == 2)
-            return new PersonalFragment();
-
-        return new BattleListFragment();
+        Fragment fragment = fragmentList.get(position);
+        if(position == 1)
+            ((RecordFragment) fragment).getData();
+        return fragment;
     }
 
     @Override

@@ -33,10 +33,11 @@
                                        android:layout_width="wrap_content"
                                        android:layout_height="wrap_content"
                                        app:layout_constraintLeft_toLeftOf="parent"
-                                       app:layout_constraintBottom_toBottomOf="@id/online_battle"
+                                       app:layout_constraintBottom_toBottomOf="parent"
                                        app:layout_constraintRight_toRightOf="parent"
                                        app:layout_constraintTop_toTopOf="@id/friend_battle"
                                        android:backgroundTint="@color/card_button"
+                                       app:layout_constraintVertical_bias="0.4"
                                        app:cardCornerRadius="15dp"
                                        app:cardElevation="@dimen/cardview_default_elevation">
         <TextView android:layout_width="wrap_content"
@@ -50,51 +51,6 @@
                   android:layout_marginBottom="10dp"/>
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView android:id="@+id/online_battle"
-                                       android:text="在线对战"
-                                       android:layout_width="wrap_content"
-                                       android:layout_height="wrap_content"
-                                       app:layout_constraintRight_toRightOf="parent"
-                                       app:layout_constraintLeft_toLeftOf="parent"
-                                       app:layout_constraintBottom_toBottomOf="parent"
-                                       app:layout_constraintTop_toTopOf="@id/friend_battle"
-                                       android:backgroundTint="@color/card_button"
-                                       app:cardCornerRadius="15dp"
-                                       app:cardElevation="@dimen/cardview_default_elevation">
-        <TextView android:layout_width="wrap_content"
-                  android:text="在线对战"
-                  android:textColor="@color/white"
-                  android:textSize="20sp"
-                  android:layout_height="match_parent"
-                  android:layout_marginRight="40dp"
-                  android:layout_marginLeft="40dp"
-                  android:layout_marginTop="10dp"
-                  android:layout_marginBottom="10dp"/>
-    </androidx.cardview.widget.CardView>
-
-    <ImageButton android:id="@+id/friend"
-                 android:src="@drawable/friend"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 app:layout_constraintRight_toRightOf="@id/friend_battle"
-                 app:layout_constraintLeft_toLeftOf="parent"
-                 app:layout_constraintBottom_toBottomOf="parent"
-                 app:layout_constraintTop_toBottomOf="@id/online_battle"
-                 app:layout_constraintHorizontal_bias="0.1"
-                 app:layout_constraintVertical_bias="0.9"
-                 android:background="@android:color/transparent"/>
-
-    <ImageButton android:id="@+id/help"
-                 android:src="@drawable/help"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 app:layout_constraintRight_toRightOf="parent"
-                 app:layout_constraintLeft_toRightOf="@id/friend"
-                 app:layout_constraintBottom_toBottomOf="parent"
-                 app:layout_constraintTop_toBottomOf="@id/online_battle"
-                 app:layout_constraintHorizontal_bias="0.9"
-                 app:layout_constraintVertical_bias="0.9"
-                 android:background="@android:color/transparent"/>
 
     <ProgressBar
             android:id="@+id/loading"
@@ -108,13 +64,5 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
-    <Button
-            android:text="返回"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/re_button"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="19dp"
-            android:layout_marginStart="19dp" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="14dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="304dp"
-            android:layout_marginRight="304dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

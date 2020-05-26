@@ -2,13 +2,15 @@ package com.shanmingc.yi.network;
 
 import android.util.Log;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.shanmingc.yi.activity.BoardActivity;
 import okhttp3.*;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class RequestProxy implements Callback {
 
@@ -83,6 +85,34 @@ public class RequestProxy implements Callback {
             e.printStackTrace();
         }
         return map;
+    }
+
+    public static List<Map<String, Object>> waitForResponseList(Request request) {
+        List<Map<String, Object>> res = new ArrayList<>();
+        Map<String, Object> map = null;
+
+        proxy.request(request);
+        try {
+            while (!proxy.isDone()) {
+                Thread.sleep(100);
+            }
+
+            String response = proxy.response();
+
+            Gson gson = new Gson();
+            JsonParser jsonParser = new JsonParser();
+            JsonArray jsonElements = jsonParser.parse(response).getAsJsonArray();
+            for(JsonElement element : jsonElements) {
+                map = gson.fromJson(element, new TypeToken<Map<String, Object>>(){}.getType());
+                res.add(map);
+            }
+
+        } catch (Exception e) {
+            BoardActivity.logResponse(TAG, map, "illegal state exception");
+            e.printStackTrace();
+        }
+
+        return res;
     }
 
     @Override

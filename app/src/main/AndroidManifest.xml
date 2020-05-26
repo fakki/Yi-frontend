@@ -13,6 +13,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity android:name=".activity.WatchActivity">
+        </activity>
         <activity android:name=".activity.TestActivity">
         </activity>
         <activity android:name=".activity.RegisterActivity">
@@ -20,17 +22,17 @@
         <activity android:name=".activity.LoginActivity">
         </activity>
         <activity android:name=".activity.RoomActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".activity.BoardActivity">
         </activity>
         <activity android:name=".activity.ForgetActivity">
         </activity>
         <activity android:name=".activity.GameMenuActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
     </application>
 

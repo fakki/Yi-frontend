@@ -10,6 +10,7 @@ import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.cardview.widget.CardView;
 import com.shanmingc.yi.R;
 import com.shanmingc.yi.model.UserMessage;
 import com.shanmingc.yi.network.RequestProxy;
@@ -21,13 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
 
-<<<<<<< HEAD
     public static final String HOST = "http://192.168.1.5:8081";
-=======
-
-    public static final String HOST = "http://192.168.1.5:8081";
-
->>>>>>> fe4108d2640ee16501d0ae081e7f4f5fc9126ecb
 
     private String username;
     private String password;
@@ -46,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void initRegisterButton() {
-        Button button = findViewById(R.id.register);
+        CardView button = findViewById(R.id.register);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

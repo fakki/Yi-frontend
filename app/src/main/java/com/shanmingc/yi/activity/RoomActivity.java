@@ -1,12 +1,9 @@
 package com.shanmingc.yi.activity;
 
 import android.content.*;
-import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +12,6 @@ import androidx.cardview.widget.CardView;
 import com.jyn.vcview.VerificationCodeView;
 import com.shanmingc.yi.R;
 import com.shanmingc.yi.network.RequestProxy;
-import com.shanmingc.yi.view.ProgressDialog;
 import okhttp3.FormBody;
 import okhttp3.Request;
 
@@ -57,13 +53,6 @@ public class RoomActivity extends AppCompatActivity {
 
         userPreference = getSharedPreferences(USER_PREFERENCE, MODE_PRIVATE);
 
-        Button rebutton =findViewById(R.id.re_button);
-        rebutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(RoomActivity.this,GameMenuActivity.class));
-            }
-        });
 
         CardView friend_battle = findViewById(R.id.friend_battle);
         friend_battle.setOnClickListener(new View.OnClickListener() {
@@ -78,23 +67,6 @@ public class RoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 joinBattle();
-            }
-        });
-
-        CardView online_battle = findViewById(R.id.online_battle);
-        online_battle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-<<<<<<< HEAD
-                SharedPreferences preferences = getSharedPreferences(USER_PREFERENCE, MODE_PRIVATE);
-=======
-                SharedPreferences preferences = getSharedPreferences(USER_PREFERENCES, MODE_PRIVATE);
->>>>>>> fe4108d2640ee16501d0ae081e7f4f5fc9126ecb
-                preferences.edit().putBoolean(IS_LOGIN, true).apply();
-                boolean isLogin = preferences.getBoolean(IS_LOGIN, false);
-                if(isLogin)
-                    startActivity(new Intent(RoomActivity.this, BoardActivity.class));
-                else startActivity(new Intent(RoomActivity.this, LoginActivity.class));
             }
         });
 

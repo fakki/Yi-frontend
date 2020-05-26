@@ -27,9 +27,9 @@ public class ResetPasswordActivity  extends AppCompatActivity {
     private ExecutorService exec = Executors.newCachedThreadPool();
 
     @Override
-    protected   void onCreate(final Bundle savedInstanceState){
+    protected void onCreate(final Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resetpassword);
+        /*setContentView(R.layout.activity_resetpassword);
 
         final EditText  passwordEdit = findViewById(R.id.password);
 
@@ -66,6 +66,6 @@ public class ResetPasswordActivity  extends AppCompatActivity {
                 //Future<String> response = exec.submit(new com.shanmingc.yi.network.Request(request));
                 //while (!response.isDone())
             }
-        });
+        });*/
     }
 }

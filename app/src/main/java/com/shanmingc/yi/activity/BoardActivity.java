@@ -136,11 +136,12 @@ public class BoardActivity extends AppCompatActivity {
                 int y = intent.getIntExtra(CHESS_Y, -1);
                 int step = intent.getIntExtra(STEP, 0);
                 boolean local = intent.getBooleanExtra("local", false);
+                boolean win = intent.getBooleanExtra("win", false);
                 currStep = step;
                 if(local) {
                     if(mYourTurn) {
                         mYourTurn = false;
-                        requestChessOn(x, y, step);
+                        requestChessOn(x, y, step, win);
                         //mBoardView.chess(x, y);
                     }
                 }
@@ -152,8 +153,10 @@ public class BoardActivity extends AppCompatActivity {
                 }
                 Log.d(TAG, x + " " + y + " " + step);
             } else if(action.equals(FINISH_BROADCAST)) {
+                Log.d("chess", "finish broadcast");
                 boolean blackWin = intent.getBooleanExtra("blackWin", false);
-                new AlertDialog
+                Toast.makeText(BoardActivity.this, (blackWin)? R.string.black_win : R.string.white_win, Toast.LENGTH_SHORT).show();
+                /*final AlertDialog alertDialog = new AlertDialog
                         .Builder(BoardActivity.this)
                         .setMessage((blackWin)? R.string.black_win : R.string.white_win)
                         .setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
@@ -161,13 +164,13 @@ public class BoardActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 requestGameQuit();
                                 requestQuitRoom();
-                                BoardActivity.this.finish();
+                                //BoardActivity.this.finish();
                             }
                         })
                         .setCancelable(false)
-                        .create()
-                        .show();
-                mGameStart = false;
+                        .create();
+                alertDialog.show();*/
+                //mGameStart = false;
                 //exec.execute(new PlayerTask());
             } else if(action.equals(UI_BROADCAST)) {
                 if(mGameStart)
@@ -255,6 +258,8 @@ public class BoardActivity extends AppCompatActivity {
             requestGameStart();
 
             mYourTurn = mBlack;
+
+            Log.d("chess", "mblack: " + mBlack);
 
             sendBroadcast(new Intent(UI_BROADCAST));
 
@@ -461,8 +466,8 @@ public class BoardActivity extends AppCompatActivity {
         RequestProxy.waitForResponse(request);
     }
 
-    private void requestChessOn(int x, int y, int step) {
-
+    private void requestChessOn(int x, int y, int step, boolean win) {
+        Log.d("chess", " send chess win? " + win);
         Map<String, Object> game;
         do {
 
@@ -471,6 +476,7 @@ public class BoardActivity extends AppCompatActivity {
                     .add("x", Integer.toString(x))
                     .add("y", Integer.toString(y))
                     .add("step", Integer.toString(step))
+                    .add("win", Boolean.toString(win))
                     .build();
 
             Request request = new Request.Builder()
@@ -529,6 +535,8 @@ public class BoardActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        requestGameQuit();
+        requestQuitRoom();
         super.onDestroy();
         threadEnd = true;
         exec.shutdown();

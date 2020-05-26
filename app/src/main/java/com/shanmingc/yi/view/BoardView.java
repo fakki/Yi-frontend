@@ -64,7 +64,6 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
         gamePreference = context.getSharedPreferences(GAME_PREFERENCE, MODE_PRIVATE);
         roomPreference = context.getSharedPreferences(ROOM_PREFERENCE, MODE_PRIVATE);
         userPreference = context.getSharedPreferences(USER_PREFERENCE, MODE_PRIVATE);
-        mBlack = gamePreference.getBoolean("isBlack", false);
     }
 
     @Override
@@ -151,17 +150,22 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if(event.getAction() == ACTION_UP) {
+            mBlack = gamePreference.getBoolean("isBlack", false);
             int[] pos = processPos(event.getX(), event.getY());
             if(board[pos[0]][pos[1]] != 0)
                 return false;
-            if(mBlack == ((curChess+1)%2 == 0))
+            if(mBlack == ((curChess+1)%2 == 0)) {
+                Toast.makeText(context, "不是你的回合", Toast.LENGTH_SHORT).show();
                 return false;
-            chess(pos[0], pos[1]);
+            }
+            boolean win = chess(pos[0], pos[1]);
             Intent intent = new Intent(CHESS_BROADCAST);
             intent.putExtra(CHESS_X, pos[0]);
             intent.putExtra(CHESS_Y, pos[1]);
             intent.putExtra(STEP, curChess);
             intent.putExtra("local", true);
+            Log.d("chess", ": has win " + win);
+            intent.putExtra("win", win);
             context.sendBroadcast(intent);
         }
         return true;
@@ -174,7 +178,8 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
         curChess = 0;*/
         Intent intent = new Intent(FINISH_BROADCAST);
         intent.putExtra("blackWin", curChess % 2 != 0);
-        requestWin();
+        context.sendBroadcast(intent);
+        //requestWin();
         board = new int[GRID_W_SIZE+1][GRID_H_SIZE+1];
     }
 
@@ -218,17 +223,21 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
         return num == 5;
     }
 
-    public void chess(int x, int y) {
-        addStep(x, y);
+    public boolean chess(int x, int y) {
+        boolean win = addStep(x, y);
         paintBoard();
+        return win;
     }
 
-    private void addStep(int x, int y) {
+    private boolean addStep(int x, int y) {
         chessSeq[++curChess][0] = x;
         chessSeq[curChess][1] = y;
         board[x][y] = (curChess % 2) + 1;
-        if(isSuccess(x, y))
+        if(isSuccess(x, y)) {
             onSuccess();
+            return true;
+        }
+        return false;
     }
 
     @Override

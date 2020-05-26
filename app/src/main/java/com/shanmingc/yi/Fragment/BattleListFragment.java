@@ -17,13 +17,8 @@ public class BattleListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         view = inflater.inflate(R.layout.battle_fragment,null);
-        return  view;
-    }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState){
-        super.onActivityCreated(savedInstanceState);
-        CardView bt_button = getActivity().findViewById(R.id.battle_button);
+        CardView bt_button = view.findViewById(R.id.battle_button);
 
         bt_button.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -33,6 +28,7 @@ public class BattleListFragment extends Fragment {
             }
         });
 
+        return view;
     }
 
 }
