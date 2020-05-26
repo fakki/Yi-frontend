@@ -5,55 +5,74 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent">
     <EditText
-            android:layout_width="333dp"
-            android:layout_height="63dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:ems="10"
+            android:ems="20"
             android:id="@+id/email"
 
             android:hint="请输入你的电子邮箱"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="160dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="160dp"
             android:layout_marginEnd="38dp"
             android:layout_marginRight="38dp"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="40dp"
             android:layout_marginStart="40dp"/>
     <EditText
-            android:layout_width="333dp"
-            android:layout_height="65dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:hint="请输入你新的密码"
-            android:ems="10"
+            android:ems="18"
             android:id="@+id/newpassword"
+
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email"
             android:layout_marginLeft="42dp"
             android:layout_marginStart="42dp"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="36dp"
             android:layout_marginRight="36dp"
-            android:layout_marginTop="17dp"
-            app:layout_constraintTop_toBottomOf="@+id/email"/>
+            android:layout_marginTop="17dp"/>
+
+
+
     <androidx.cardview.widget.CardView
-            android:layout_width="78dp"
-            android:layout_height="37dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/forgetfound"
-            android:backgroundTint="@color/lightgray"
-            android:layout_marginLeft="166dp"
-            android:layout_marginStart="166dp"
-            android:layout_marginEnd="162dp"
-            android:layout_marginRight="162dp"
+            android:backgroundTint="@color/card_button"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="@dimen/cardview_default_elevation"
+
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="327dp"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="300dp"
+    >
         <TextView
                 android:text="找回"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:gravity="center"
-                android:layout_width="match_parent"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/textView2"/>
+                android:id="@+id/textView2"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
     </androidx.cardview.widget.CardView>
+    <TextView
+           android:id="@+id/valid_newpassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="@string/valid_password"
+            android:textColor="@color/true_red"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/newpassword"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

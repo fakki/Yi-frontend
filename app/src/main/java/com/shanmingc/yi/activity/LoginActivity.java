@@ -7,17 +7,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-=======
 import android.widget.*;
->>>>>>> b80fc0353b2e384e295aeadea669f9c222d161f7
-=======
-import android.widget.*;
->>>>>>> b80fc0353b2e384e295aeadea669f9c222d161f7
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;

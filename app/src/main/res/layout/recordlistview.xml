@@ -3,39 +3,35 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-<<<<<<< HEAD
+
         android:orientation="vertical" android:layout_margin="10dp">
-        <TextView
+    <TextView
 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="20sp"
-=======
-        android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:orientation="vertical"/>
 
-        <TextView
+    <TextView
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
 
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:textColor="@color/black"
->>>>>>> 7308dbb222fd0b832aa72f481712236e26e72c0d
-                android:id="@+id/TVrecord"/>
-        <TextView
-                android:textColor="@color/black"
-                android:layout_width="match_parent"
-<<<<<<< HEAD
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:id="@+id/TVround"/>
-</LinearLayout>
-=======
-                android:layout_height="32dp"
-                android:id="@+id/TVround"/>
-        <TextView
-                android:textColor="@color/lightgray"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:id="@+id/TVtime"/>
+            android:id="@+id/TVrecord"/>
+    <TextView
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+
+            android:id="@+id/TVround"/>
+
+    <TextView
+            android:textColor="@color/lightgray"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+
+            android:id="@+id/TVtime"/>
 
 </LinearLayout>
->>>>>>> 7308dbb222fd0b832aa72f481712236e26e72c0d
+
