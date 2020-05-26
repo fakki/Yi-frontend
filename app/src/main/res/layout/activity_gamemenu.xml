@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 =======
+=======
+>>>>>>> b80fc0353b2e384e295aeadea669f9c222d161f7
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
+<<<<<<< HEAD
+>>>>>>> b80fc0353b2e384e295aeadea669f9c222d161f7
+=======
 >>>>>>> b80fc0353b2e384e295aeadea669f9c222d161f7
 
     <com.google.android.material.tabs.TabLayout
