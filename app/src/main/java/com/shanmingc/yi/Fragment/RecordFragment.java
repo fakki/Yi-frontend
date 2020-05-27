@@ -1,14 +1,11 @@
 package com.shanmingc.yi.Fragment;
 
-<<<<<<< HEAD
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-=======
-import android.graphics.Color;
-import android.media.tv.TvContentRating;
->>>>>>> 7308dbb222fd0b832aa72f481712236e26e72c0d
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +35,7 @@ import static com.shanmingc.yi.activity.RoomActivity.USER_PREFERENCE;
 
 public class RecordFragment extends Fragment {
     private ListView listView;
-<<<<<<< HEAD
+
 
     private ProgressDialog dialog;
 
@@ -50,12 +47,7 @@ public class RecordFragment extends Fragment {
         dialog = new ProgressDialog.Builder(getActivity()).build();
         dialog.setCancelable(false);
 
-=======
-    private TextView TVrecord;
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.record_fragment, null);
-        TVrecord = view.findViewById(R.id.TVrecord);
->>>>>>> 7308dbb222fd0b832aa72f481712236e26e72c0d
+
         listView = view.findViewById(R.id.Recordlist);
 
         getData();
@@ -79,7 +71,7 @@ public class RecordFragment extends Fragment {
 
     public void getData(){
 
-        dialog.show();
+        //dialog.show();
 
         RecordTask task = new RecordTask();
         task.execute();
@@ -90,7 +82,7 @@ public class RecordFragment extends Fragment {
         @Override
         protected List<Map<String, Object>> doInBackground(Void... voids) {
 
-<<<<<<< HEAD
+
             SharedPreferences userPreference = getActivity().getSharedPreferences(USER_PREFERENCE, Context.MODE_PRIVATE);
 
             Request request = new Request.Builder()
@@ -99,20 +91,7 @@ public class RecordFragment extends Fragment {
                     .build();
 
             return RequestProxy.waitForResponseList(request);
-=======
-        for (int i = 0;i < 10 ;i++)
-        {
-            Map<String ,Object> map = new HashMap<String,Object>();
-            String strrecord = "";
-            String strround = "";
-            String strtime = "";
-            map.put("record","胜负"/* 直接放strrecord */);
-          /*  if (strrecord == "负") TVrecord.setTextColor(Color.parseColor("FF0000"));
-                else  TVrecord.setTextColor(Color.parseColor("7cfc00")); */
-            map.put("round","步数:"+strround);
-            map.put("time","对战日期:"+strtime);
-            list.add(map);
->>>>>>> 7308dbb222fd0b832aa72f481712236e26e72c0d
+
         }
 
         @Override
@@ -120,8 +99,10 @@ public class RecordFragment extends Fragment {
             super.onPostExecute(maps);
             games = maps;
             listView.setAdapter(new RecordFragment_ListViewAdapter(getActivity(), maps));
-            dialog.cancel();
+            //dialog.cancel();
         }
+
+
     }
 
 }

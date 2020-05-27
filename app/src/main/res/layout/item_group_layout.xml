@@ -22,7 +22,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="@color/darkgray"
                 android:textSize="13sp"
-                tools:text="姓名" />
+                tools:text="标题"/>
 
         <TextView
                 android:id="@+id/content_edt"
@@ -31,23 +31,23 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:background="@null"
-                android:hint="请输入姓名"
+                android:hint="可更改输入框"
                 android:singleLine="true"
                 android:textColor="@color/lightgray"
-                android:textSize="13sp" />
+                android:textSize="13sp"/>
 
 
         <!--点击跳转或者弹出选择框-->
         <ImageView
                 android:id="@+id/jt_right_iv"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="7dp"
                 android:padding="8dp"
+                android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                app:srcCompat="@android:drawable/ic_menu_send"/>
+                app:srcCompat="@drawable/timg__2_"/>
     </LinearLayout>
-
     <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

@@ -54,7 +54,7 @@ public class ForgetActivity extends AppCompatActivity {
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_forget);
-
+        final TextView newpasswordValid = findViewById(R.id.valid_newpassword);
         EditText emailEdit = findViewById(R.id.email);
         final EditText newpasswordEdit = findViewById(R.id.newpassword);
 
@@ -84,7 +84,11 @@ public class ForgetActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 newpassword = charSequence.toString();
+                if(isValidPassword(newpassword))
+                    newpasswordValid.setVisibility(View.INVISIBLE);
+                else newpasswordValid.setVisibility(View.VISIBLE);
             }
+
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -96,30 +100,7 @@ public class ForgetActivity extends AppCompatActivity {
         forgetfind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*loading.setVisibility(View.VISIBLE);
-                FormBody formBody = new FormBody.Builder()
-                        .add("email", email)
-                        .add("password",newpassword)
-                        .build();
-                Request request = new Request.Builder().url(HOST + "/api/user/login/forgetpassword")
-                        .post(formBody).build();
 
-                Map<String,Object> user = RequestProxy.waitForResponse(request);
-
-                loading.setVisibility(View.GONE);
-
-                UserMessage message = new UserMessage(
-                        (String) user.get("username"),
-                        (String) user.get("message"));
-                if(message.getUsername().length() > 0)
-                {
-                    onSuccess(message);
-                    startActivity(new Intent(ForgetActivity.this,ResetPasswordActivity.class));
-                }
-                else {
-                    onFailed(message);
-                    startActivity(new Intent(ForgetActivity.this,ForgetActivity.class));
-                }*/
                 onSuccess(new UserMessage("default", "success"));
             }
         });
@@ -163,6 +144,11 @@ public class ForgetActivity extends AppCompatActivity {
         Log.d(TAG, "found it and completed:" + message);
         startActivity(new Intent(ForgetActivity.this, LoginActivity.class));
         finish();
+    }
+    public static boolean isValidPassword(String password) {
+        if(password.length() > 20 || password.length() < 8)
+            return false;
+        return password.matches("[0-9a-zA-Z_]*?");
     }
 }
 

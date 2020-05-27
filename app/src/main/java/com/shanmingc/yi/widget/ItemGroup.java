@@ -52,12 +52,7 @@ public class ItemGroup extends FrameLayout {
         jtRightIv = (ImageView) view.findViewById(R.id.jt_right_iv);
         addView(view); //把自定义的这个组合控件的布局加入到当前FramLayout
     }
-    /**
-     * 初始化相关属性，引入相关属性
-     *
-     * @param context
-     * @param attrs
-     */
+
     private void initAttrs(Context context, AttributeSet attrs) {
         //标题的默认字体颜色
         int defaultTitleColor = context.getResources().getColor(R.color.darkgray);
