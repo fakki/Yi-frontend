@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.cardview.widget.CardView;
 import com.shanmingc.yi.R;
 import com.shanmingc.yi.network.RequestProxy;
 import com.shanmingc.yi.view.BoardView;
@@ -48,12 +49,14 @@ public class BoardActivity extends AppCompatActivity {
 
     private String room_id;
 
+    private TextView selfReadyText;
+
     private TextView selfText;
     private TextView opponentText;
     private ImageView selfChess;
     private ImageView opponentChess;
     private TextView opponentReady;
-    private Button selfReady;
+    private CardView selfReady;
     private BoardView mBoardView;
 
     private SharedPreferences gamePreference;
@@ -81,6 +84,7 @@ public class BoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_board_actvity);
 
         selfReady = findViewById(R.id.self_ready);
+        selfReadyText = findViewById(R.id.self_ready_text);
         selfReady.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,8 +96,8 @@ public class BoardActivity extends AppCompatActivity {
                     }
                 });
                 if(ready)
-                    selfReady.setText(R.string.cancel_ready);
-                else selfReady.setText(R.string.ready);
+                    selfReadyText.setText(R.string.cancel_ready);
+                else selfReadyText.setText(R.string.ready);
             }
         });
 
@@ -156,20 +160,18 @@ public class BoardActivity extends AppCompatActivity {
                 Log.d("chess", "finish broadcast");
                 boolean blackWin = intent.getBooleanExtra("blackWin", false);
                 Toast.makeText(BoardActivity.this, (blackWin)? R.string.black_win : R.string.white_win, Toast.LENGTH_SHORT).show();
-                /*final AlertDialog alertDialog = new AlertDialog
+                AlertDialog alertDialog = new AlertDialog
                         .Builder(BoardActivity.this)
                         .setMessage((blackWin)? R.string.black_win : R.string.white_win)
                         .setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                requestGameQuit();
-                                requestQuitRoom();
-                                //BoardActivity.this.finish();
+
                             }
                         })
                         .setCancelable(false)
                         .create();
-                alertDialog.show();*/
+                alertDialog.show();
                 //mGameStart = false;
                 //exec.execute(new PlayerTask());
             } else if(action.equals(UI_BROADCAST)) {
@@ -259,13 +261,15 @@ public class BoardActivity extends AppCompatActivity {
 
             mYourTurn = mBlack;
 
+            boolean chessFinish = false;
+
             Log.d("chess", "mblack: " + mBlack);
 
             sendBroadcast(new Intent(UI_BROADCAST));
 
             while(true) {
                 //退出activity时的结束条件
-                if(threadEnd)
+                if(threadEnd || chessFinish)
                     break;
                 if(mYourTurn) {
                     while(mYourTurn) {
@@ -290,18 +294,20 @@ public class BoardActivity extends AppCompatActivity {
                             continue;
                         boolean blackWin = (Boolean) game.get("blackWin");
                         boolean finish = (Boolean) game.get("finish");
+                        step = ((Double) game.get("step_count")).intValue();
                         //结束条件
                         if(finish) {
                             Intent intent = new Intent(FINISH_BROADCAST);
                             intent.putExtra("blackWin", blackWin);
                             sendBroadcast(intent);
-                            return;
+                            chessFinish = true;
+                            break;
                         }
-                        step = ((Double) game.get("step_count")).intValue();
                     } while(step != currStep+1);
                     int x = ((Double) game.get("lastX")).intValue();
                     int y = ((Double) game.get("lastY")).intValue();
-                    sendBroadcast(createBroadcast(x, y, step, false));
+                    if(step == currStep+1)
+                        sendBroadcast(createBroadcast(x, y, step, false));
                 }
             }
 

@@ -2,6 +2,7 @@ package com.shanmingc.yi.Fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,14 +51,24 @@ public class RecordFragment_ListViewAdapter extends BaseAdapter {
         Map<String, Object> m = data.get(position);
         long black_id = ((Double) m.get("black_id")).longValue();
         int step_count = ((Double) m.get("step_count")).intValue();
+        String start_time = (String) (m.get("start_time"));
         boolean blackWin = (step_count % 2 == 1);
 
 
         TextView record = convertView.findViewById(R.id.TVrecord);
         Log.d("record", "blackWin: " + blackWin + " id == black_id: " + (id == black_id));
-        if(blackWin == (id == black_id))
+        if(blackWin == (id == black_id)) {
             record.setText("胜利");
-        else record.setText("失败");
+            record.setTextColor(Color.parseColor("#00FC3F"));
+        }
+        else {
+            record.setText("失败");
+            record.setTextColor(Color.parseColor("#b22222"));
+        }
+
+        TextView time = convertView.findViewById(R.id.time);
+        time.setText(start_time);
+
         TextView round = convertView.findViewById(R.id.TVround);
         round.setText("总步数：" + step_count);
         return convertView;

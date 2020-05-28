@@ -1,11 +1,14 @@
 package com.shanmingc.yi.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -18,6 +21,7 @@ import androidx.cardview.widget.CardView;
 import com.shanmingc.yi.R;
 import com.shanmingc.yi.model.UserMessage;
 import com.shanmingc.yi.network.RequestProxy;
+import com.shanmingc.yi.view.ProgressDialog;
 import okhttp3.*;
 
 
@@ -32,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private String username;
     private String password;
 
-    private ProgressBar loading;
+    private AlertDialog mDialog;
 
     private static final String TAG = "LoginActivity";
 
@@ -47,6 +51,15 @@ public class LoginActivity extends AppCompatActivity {
 
         EditText usernameEdit = findViewById(R.id.username);
         final EditText passwordEdit = findViewById(R.id.password);
+
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.progress_dialog, null, false);
+
+        mDialog = new AlertDialog.Builder(this)
+                .setView(view)
+                .create();
+
+        mDialog.setCanceledOnTouchOutside(false);
 
         usernameEdit.addTextChangedListener(new TextWatcher() {
             @Override
@@ -81,8 +94,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        loading = findViewById(R.id.loading);
-
         TextView registerButton = findViewById(R.id.register);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,29 +115,50 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //点击登录后，显示加载动画
-                loading.setVisibility(View.VISIBLE);
-                //构建Post请求体
-                FormBody formBody = new FormBody.Builder()
-                        .add("username", username)
-                        .add("password", password)
-                        .build();
-                //网络请求
-                Request request = new Request.Builder().url(HOST + "/api/user/login").
-                        post(formBody).build();
+                mDialog.show();
 
-                Map<String, Object> user = RequestProxy.waitForResponse(request);
-
-                loading.setVisibility(View.GONE);
-
-                UserMessage message = new UserMessage(
-                        (String) user.get("username"),
-                        (String) user.get("message"),
-                        ((Double) user.get("uid")).longValue());
-                if(message.getUsername().length() > 0)
-                    onSuccess(message);
-                else onFailed(message);
+                LoginTask loginTask = new LoginTask();
+                loginTask.execute();
             }
         });
+    }
+
+    class LoginTask extends AsyncTask<Void, Void, UserMessage> {
+        @Override
+        protected UserMessage doInBackground(Void... voids) {
+            //构建Post请求体
+            FormBody formBody = new FormBody.Builder()
+                    .add("username", username)
+                    .add("password", password)
+                    .build();
+            //网络请求
+            Request request = new Request.Builder().url(HOST + "/api/user/login").
+                    post(formBody).build();
+
+            Map<String, Object> user = RequestProxy.waitForResponse(request);
+
+            UserMessage message = new UserMessage(
+                    (String) user.get("username"),
+                    (String) user.get("message"),
+                    ((Double) user.get("uid")).longValue());
+
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return message;
+        }
+
+        @Override
+        protected void onPostExecute(UserMessage message) {
+            super.onPostExecute(message);
+            mDialog.cancel();
+            if(message.getUsername().length() > 0)
+                onSuccess(message);
+            else onFailed(message);
+        }
     }
 
     private void onFailed(UserMessage msg) {
@@ -152,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
                 .putLong(USER_ID, msg.getUid())
                 .putString(USER_NAME, msg.getUsername())
                 .apply();
-        startActivity(new Intent(this, RoomActivity.class));
+        startActivity(new Intent(this, GameMenuActivity.class));
         finish();
     }
 }

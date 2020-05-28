@@ -22,7 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
 
-    public static final String HOST = "http://192.168.1.5:8081";
+    public static final String HOST = "http://shanmingc.com:12345";
 
     private String username;
     private String password;
@@ -62,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
                 UserMessage message = new UserMessage(
                         (String) user.get("username"),
                         (String) user.get("message"),
-                        (long) user.get("uid"));
+                        ((Double) user.get("uid")).longValue());
 
                 loading.setVisibility(View.GONE);
                 if (message.getUsername().length() > 0)

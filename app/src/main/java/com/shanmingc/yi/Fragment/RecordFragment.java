@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.shanmingc.yi.R;
 import com.shanmingc.yi.activity.WatchActivity;
 import com.shanmingc.yi.network.RequestProxy;
@@ -39,13 +40,20 @@ public class RecordFragment extends Fragment {
 
     private ProgressDialog dialog;
 
+    private SwipeRefreshLayout refreshLayout;
+
     List<Map<String, Object>> games;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.record_fragment, null);
 
-        dialog = new ProgressDialog.Builder(getActivity()).build();
-        dialog.setCancelable(false);
+        refreshLayout = view.findViewById(R.id.refresh);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData();
+            }
+        });
 
 
         listView = view.findViewById(R.id.Recordlist);
@@ -82,8 +90,7 @@ public class RecordFragment extends Fragment {
         @Override
         protected List<Map<String, Object>> doInBackground(Void... voids) {
 
-
-            SharedPreferences userPreference = getActivity().getSharedPreferences(USER_PREFERENCE, Context.MODE_PRIVATE);
+            SharedPreferences userPreference = RecordFragment.this.getActivity().getSharedPreferences(USER_PREFERENCE, Context.MODE_PRIVATE);
 
             Request request = new Request.Builder()
                     .url(HOST + "/api/game/records?id=" + userPreference.getLong(USER_ID, 0))
@@ -98,8 +105,8 @@ public class RecordFragment extends Fragment {
         protected void onPostExecute(List<Map<String, Object>> maps) {
             super.onPostExecute(maps);
             games = maps;
-            listView.setAdapter(new RecordFragment_ListViewAdapter(getActivity(), maps));
-            //dialog.cancel();
+            listView.setAdapter(new RecordFragment_ListViewAdapter(RecordFragment.this.getActivity(), maps));
+            refreshLayout.setRefreshing(false);
         }
 
 

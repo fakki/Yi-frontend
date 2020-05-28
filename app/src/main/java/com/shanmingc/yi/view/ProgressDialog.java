@@ -2,8 +2,6 @@ package com.shanmingc.yi.view;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import com.shanmingc.yi.R;

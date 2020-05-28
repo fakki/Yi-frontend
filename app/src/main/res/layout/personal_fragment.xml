@@ -10,12 +10,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
     <com.shanmingc.yi.widget.ItemGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:jt_visible="false">
-
-    </com.shanmingc.yi.widget.ItemGroup>
-    <com.shanmingc.yi.widget.ItemGroup
             android:id="@+id/mine"
             android:layout_height="wrap_content"
             app:jt_visible="true"

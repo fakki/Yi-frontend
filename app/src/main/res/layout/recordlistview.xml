@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/white"
+        app:cardElevation="@dimen/cardview_default_elevation"
+        app:cardCornerRadius="@dimen/cardview_default_radius"
 
-        android:orientation="vertical" android:layout_margin="10dp">
+>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_margin="10dp"
+                  android:text="2012-12-12 21:30:22"
+                  android:id="@+id/time"/>
+        <TextView
+                android:textColor="@color/black"
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手数：10"
+                android:id="@+id/TVround"/>
+    </LinearLayout>
+
     <TextView
-
-            android:layout_width="match_parent"
+            android:textColor="#00FC3F"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="胜利"
             android:textSize="20sp"
-            android:orientation="vertical"/>
-
-    <TextView
-            android:textColor="@color/black"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-
-            android:id="@+id/TVrecord"/>
-    <TextView
-            android:textColor="@color/black"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-
-            android:id="@+id/TVround"/>
-
-    <TextView
-            android:textColor="@color/lightgray"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-
-            android:id="@+id/TVtime"/>
-
-</LinearLayout>
+            android:id="@+id/TVrecord" android:layout_gravity="end|center_vertical"/>
+</androidx.cardview.widget.CardView>
 

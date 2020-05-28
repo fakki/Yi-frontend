@@ -13,6 +13,8 @@
         tools:context=".activity.BoardActivity">
     <TextView android:id="@+id/self_name"
               android:text="self"
+              android:textSize="20sp"
+              android:textColor="@color/black"
               android:layout_height="wrap_content"
               android:layout_width="wrap_content"
               app:layout_constraintLeft_toLeftOf="parent"
@@ -28,14 +30,28 @@
                app:layout_constraintRight_toLeftOf="@id/self_ready"
                app:layout_constraintLeft_toRightOf="@id/self_name"/>
 
-    <Button android:id="@+id/self_ready"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ready"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/board"
-            app:layout_constraintLeft_toRightOf="@id/self_chess"
-            app:layout_constraintRight_toRightOf="parent"/>
+    <androidx.cardview.widget.CardView android:id="@+id/self_ready"
+                                       android:layout_width="wrap_content"
+                                       android:layout_height="wrap_content"
+                                       app:layout_constraintTop_toTopOf="parent"
+                                       app:layout_constraintBottom_toTopOf="@id/board"
+                                       app:layout_constraintLeft_toRightOf="@id/self_chess"
+                                       app:layout_constraintRight_toRightOf="parent"
+                                       android:backgroundTint="@color/card_button"
+                                       app:layout_constraintVertical_bias="0.4"
+                                       app:cardCornerRadius="15dp"
+                                       app:cardElevation="@dimen/cardview_default_elevation">
+        <TextView android:id="@+id/self_ready_text"
+                  android:layout_width="wrap_content"
+                  android:text="@string/ready"
+                  android:textColor="@color/white"
+                  android:textSize="15sp"
+                  android:layout_height="match_parent"
+                  android:layout_marginRight="40dp"
+                  android:layout_marginLeft="40dp"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginBottom="10dp"/>
+    </androidx.cardview.widget.CardView>
 
     <com.shanmingc.yi.view.BoardView android:id="@+id/board"
                                      android:layout_width="wrap_content"
@@ -49,6 +65,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="@string/not_ready"
+              android:textColor="@color/black"
               app:layout_constraintTop_toBottomOf="@+id/board"
               app:layout_constraintBottom_toBottomOf="parent"
               app:layout_constraintRight_toLeftOf="@id/opponent_chess"
@@ -56,6 +73,8 @@
 
     <TextView android:id="@+id/opponent_name"
               android:text="opponent"
+              android:textColor="@color/black"
+              android:textSize="20sp"
               android:layout_height="wrap_content"
               android:layout_width="wrap_content"
               app:layout_constraintLeft_toRightOf="@id/opponent_chess"

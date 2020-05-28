@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.RoomActivity"  android:background="@drawable/board_bg6">
+        tools:context=".activity.RoomActivity" android:background="@drawable/board_bg6">
 
     <androidx.cardview.widget.CardView android:id="@+id/friend_battle"
                                        android:layout_width="wrap_content"
@@ -40,7 +40,8 @@
                                        app:layout_constraintVertical_bias="0.4"
                                        app:cardCornerRadius="15dp"
                                        app:cardElevation="@dimen/cardview_default_elevation">
-        <TextView android:layout_width="wrap_content"
+        <TextView android:id="@+id/self_ready_text"
+                  android:layout_width="wrap_content"
                   android:text="加入对战"
                   android:textColor="@color/white"
                   android:textSize="20sp"

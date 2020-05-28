@@ -1,6 +1,7 @@
 package com.shanmingc.yi.activity;
 
 import android.content.*;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -155,54 +156,79 @@ public class RoomActivity extends AppCompatActivity {
 
         mDialog.show();
 
-        SharedPreferences userPreference = this.getSharedPreferences(USER_PREFERENCE, MODE_PRIVATE);
-        long uid = userPreference.getLong(USER_ID, 0);
-        FormBody form = new FormBody.Builder()
-                .add("owner_id", Long.toString(uid))
-                .build();
-        final Request request = new Request.Builder().url(HOST + "/api/room/battle/friend").post(form).build();
+        CodeTask codeTask = new CodeTask();
+        codeTask.execute();
 
-        Map<String, Object> room = null;
+    }
 
-        try {
-            room = exec.submit(new Callable<Map<String, Object>>() {
-                @Override
-                public Map<String, Object> call() throws Exception {
-                    return RequestProxy.waitForResponse(request);
-                }
-            }).get(4, TimeUnit.SECONDS);
-        } catch (Exception e) {
-            e.printStackTrace();
+    class CodeTask extends AsyncTask<Void, Void, Map<String, Object>> {
+        @Override
+        protected Map<String, Object> doInBackground(Void... voids) {
+            SharedPreferences userPreference = RoomActivity.this.getSharedPreferences(USER_PREFERENCE, MODE_PRIVATE);
+            long uid = userPreference.getLong(USER_ID, 0);
+            FormBody form = new FormBody.Builder()
+                    .add("owner_id", Long.toString(uid))
+                    .build();
+            final Request request = new Request.Builder().url(HOST + "/api/room/battle/friend").post(form).build();
+
+            Map<String, Object> room = null;
+
+            try {
+                room = exec.submit(new Callable<Map<String, Object>>() {
+                    @Override
+                    public Map<String, Object> call() throws Exception {
+                        return RequestProxy.waitForResponse(request);
+                    }
+                }).get(4, TimeUnit.SECONDS);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            Log.d(TAG, "" + room.get("room_owner"));
+
+
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return room;
         }
 
-        mDialog.cancel();
 
-        SharedPreferences roomPreference = getSharedPreferences(ROOM_PREFERENCE, MODE_PRIVATE);
-        code = (String) room.get("code");
+        @Override
+        protected void onPostExecute(Map<String, Object> room) {
+            super.onPostExecute(room);
 
-        Log.d(TAG, "" + room.get("room_owner"));
+            SharedPreferences roomPreference = getSharedPreferences(ROOM_PREFERENCE, MODE_PRIVATE);
+            code = (String) room.get("code");
 
-        if(code != null) {
-            roomPreference
-                    .edit()
-                    .putString(ROOM_CODE, (String) room.get("code"))
-                    .putString(ROOM_ID, (String) room.get("room_id"))
-                    .putLong(ROOM_OWNER, ((Double) room.get("room_owner")).longValue())
-                    .putLong(ROOM_PLAYER, ((Double) room.get("player")).longValue()).apply();
+            mDialog.cancel();
 
-            new AlertDialog.Builder(this)
-                    .setMessage(getString(R.string.code_tint) + code)
-                    .setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(RoomActivity.this, BoardActivity.class);
-                            startActivity(intent);
-                        }
-                    })
-                    .setCancelable(false)
-                    .show();
-        } else
-            Toast.makeText(RoomActivity.this, "获取失败，请重试", Toast.LENGTH_SHORT).show();
+            if(code != null) {
+                roomPreference
+                        .edit()
+                        .putString(ROOM_CODE, (String) room.get("code"))
+                        .putString(ROOM_ID, (String) room.get("room_id"))
+                        .putLong(ROOM_OWNER, ((Double) room.get("room_owner")).longValue())
+                        .putLong(ROOM_PLAYER, ((Double) room.get("player")).longValue()).apply();
+
+                new AlertDialog.Builder(RoomActivity.this)
+                        .setMessage(getString(R.string.code_tint) + code)
+                        .setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(RoomActivity.this, BoardActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setCancelable(false)
+                        .show();
+            } else
+                Toast.makeText(RoomActivity.this, "获取失败，请重试", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     class RoomReceiver extends BroadcastReceiver {
