@@ -492,7 +492,7 @@ public class BoardActivity extends AppCompatActivity {
 
             game = RequestProxy.waitForResponse(request);
             logResponse(TAG, game, "chess on");
-        } while(game == null);
+        } while(game == null || ((Double) game.get("step_count")).intValue() != step);
     }
 
     private void gameStart() {
